@@ -1,3 +1,4 @@
+https://www.w3schools.com/php/php_oop_inheritance.asp
 ```
 1) Inheritance in OOP = When a class derives from another class.
 
