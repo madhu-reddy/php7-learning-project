@@ -1,4 +1,5 @@
 https://www.elated.com/php-anonymous-functions/
+https://concatly.com/php-array-walk-function/
 
 ```Anonymous functions```
 ```
@@ -175,4 +176,151 @@ Calling the anonymous function
 On line 14, we call our anonymous function. It manipulates the value of the $timeofDay variable inside the closure by converting its first letter to uppercase, then it returns a greeting containing $timeOfDay‘s new value, which is "Morning".
 That, in a nutshell, is how you create a closure in PHP. It’s a trivial example, but the important point to note is that the returned anonymous function can still access its enclosing function’s $timeOfDay local variable, even after the enclosing function has finished running.
 
+```
+```
+array_walk
+```
+```
+The PHP array_walk Function loops over every element of array and applies callback function to them, hence saving us the effort of writing extra loops. In this article, we will discuss the array_walk function. Also, we will discuss a few examples of using it.
+
+Array_walk function iterates over every element of the array in the call-back function/user-defined function. It returns true or false as output and can also modify the array using call by reference. It only deals with single dimensional arrays, it does not work with multi-dimensional arrays.
+
+Syntax
+array_walk($array , $callbackFunction , $param);
+
+Parameters
+PHP array_walk Function expects two mandatory parameters and one optional parameter. Always supply at most three parameters and a minimum of two parameters to array_walk function otherwise it will throw an error. 
+
+$array: It is the array on which callback function is applied.
+$callbackFunction: It is the user-defined function which is applied to the array.
+$param: The extra parameter for the callback function, it is optional.
+Usage and Examples
+Now let us see some examples to get better understanding of PHP array_walk Function.
+
+Note: PHP array_walk Function does not work on pre-defined functions like strtolower etc.
+
+Example 1: Check Odd/Even Values
+For instance, you want to check for even and odd values in the array and display them. Typically, you will be writing the below code:
+
+<?php
+$array = array(10, 45, 100, 57, 28, 60, 17);
+foreach ($array as $key => $value) {
+        if ($value % 2 == 0) {
+            echo $value . " is an even number";
+            echo "</br>";
+        } else {
+            echo $value . " is an odd number";
+            echo "</br>";
+            }
+        }
+OUTPUT:
+ 10 is an even number
+ 45 is an odd number
+ 100 is an even number
+ 57 is an odd number
+ 28 is an even number
+ 60 is an even number
+ 17 is an odd number
+Now, we will be using PHP array_walk Function to see another way of implementation the above code.
+
+function checkEvenOddNumber($value,$key)
+{
+  if($value % 2 == 0)
+    {
+      echo $value." is an even number";
+      echo "</br>";
+    }
+  else
+    {
+      echo  $value." is an odd number";
+      echo "</br>";
+    }
+}
+$array = array(10,45,100,57,28,60,17);
+array_walk($array,"checkEvenOddNumber");
+OUTPUT:
+ 10 is an even number
+ 45 is an odd number
+ 100 is an even number
+ 57 is an odd number
+ 28 is an even number
+ 60 is an even number
+ 17 is an odd number
+Here, no changes were made to the original array because all we did is just to check for even and odd values. Let’s see another example where PHP array_walk Function modifies the original array through call by reference.
+
+Example 2: Multiplying Every Element of Array
+We are taking a very simple example of multiplying every element of the array by the given number. We emphasize on the fact of the call by reference.
+
+function multiplyByNum(&$value,$key,$num)
+{
+  return $value = $value*$num;
+}
+$array = array(1,2,3,4,5);
+array_walk($array,"multiplyByNum",'3');
+echo "<pre>";
+print_r($array);
+echo "</pre>";
+OUTPUT:
+ Array
+ (
+     [0] => 3
+     [1] => 6
+     [2] => 9
+     [3] => 12
+     [4] => 15
+ )
+Only $values can be changed by reference but not $keys! Even if you pass &$keys as parameter, they will remain unchanged!
+
+Example 3: Using Method Of A Class
+We can also call a class method in array_walk function in PHP. We simply create an object of the class and pass method of the instantiated object as an array. The array contains instantiated object at 0th index and method name which you wish to call at index 1.
+
+Syntax
+array_walk($array, array( $obj , ‘mehodName’) );
+Let us quickly see it using below example. Here we call a method cubeOfNumbera of class testArrayWalk. We create an object of class $classObj and pass it along with ‘cubeOfNumbers’ as an array to PHP array_walk function.
+
+ class testArrayWalk
+  {
+    
+    public function cubeOfNumbers(&$value,$key)
+        {
+          $value = $value*$value*$value;
+        }
+  }
+$classObj = new testArrayWalk();
+print_r($classObj);
+$array = array(1,2,3,4);
+array_walk($array,array($classObj, 'cubeOfNumbers'));
+echo "<pre>";
+print_r($array);
+echo "</pre>";
+OUTPUT:
+ Array
+ (
+     [0] => 1
+     [1] => 8
+     [2] => 27
+     [3] => 64
+ )
+You can read more about Classes and follow our tutorial on Object Oriented Concepts in PHP.
+
+Example 4: Using Lambda Function
+PHP array_walk function also works well with lambda functions. Here we are calculating square of every number of the array by multiplying values with themselves. Function along with its logic is being passed as second parameter to array_walk function.
+
+$array = array(1,2,3,4,5);
+array_walk($array, function(&$value,$key)
+       {
+             return $value = $value*$value;   
+       }
+      );
+echo "<pre>";
+print_r($array);
+echo "</pre>";
+Array
+ (
+     [0] => 1
+     [1] => 4
+     [2] => 9
+     [3] => 16
+     [4] => 25
+ )
 ```
