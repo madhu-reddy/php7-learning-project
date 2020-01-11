@@ -1,5 +1,7 @@
+
 https://www.elated.com/php-anonymous-functions/
 https://concatly.com/php-array-walk-function/
+
 
 ```Anonymous functions```
 ```
