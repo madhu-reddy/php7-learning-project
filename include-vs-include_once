@@ -1,0 +1,46 @@
+FILES: 
+
+FUNCTIONS.PHP 
+
+GLOBALS.PHP 
+
+HEADER.PHP 
+
+this is how each file looks like:
+
+ 
+FUNCTIONS.PHP 
+
+<?php 
+function foo(){ 
+echo 'some code'; 
+} 
+?>
+GLOBALS.PHP: 
+
+<?php 
+include('FUNCTIONS.PHP'); 
+foo(); 
+?>
+HEADER.PHP 
+
+<?php 
+include('FUNCTIONS.PHP'); 
+include('GLOBALS.PHP'); 
+foo(); 
+?>
+now if you try to open HEADER.PHP you will get an error because GLOBALS.PHP includes FUNCTIONS.PHP already. you will get an error saying that function foo() was already declared in GLOBALS.PHP, and i also included in HEADER.PHP - which means i have included FUNCTIONS.PHP two times. 
+
+so to be sure i only include FUNCTIONS.PHP only ONE time, i should use the include_once() function, so my HEADER.PHP should look like this: 
+HEADER.PHP 
+
+<?php 
+include_once('FUNCTIONS.PHP'); 
+include('GLOBALS.PHP'); 
+?>
+ 
+now when i open HEADER.PHP, i will not get an error anymore because PHP knows to include the file FUNCTIONS.PHP only ONCE 
+so to avoid getting an error, it would just be safe to use include_once() instead of include() function in your php code. 
+if you know you are messy with your PHP code, then its safer to use the include_once(), but if you keep track of all your code, then its ok to use the include() function. 
+
+hope i helped you explained the difrences between the include() and the include_once() functions in php
