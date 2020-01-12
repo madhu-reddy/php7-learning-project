@@ -1,0 +1,14 @@
+include: This will try to find and include the specified file each time it is invoked. If the file is not found, PHP will throw a warning, but will continue with the execution.
+require: This will do the same as include, but PHP will throw an error instead of a warning if the file is not found.
+include_once: This function will do what include does, but it will include the file only the first time that it is invoked. Subsequent calls will be ignored.
+require_once: This works the same as require, but it will include the file only the first time that it is invoked. Subsequent calls will be ignored.
+
+Each function has its own usage, so it is not right to say that one is better than the other. 
+Just think carefully what your scenario is, and then decide.
+For example, let's try to include our index.html file from our index.php file such that we do not mix PHP with HTML, but have the best of both worlds:
+
+<?php
+echo 'hello world';
+require 'index.html';
+We chose require as we know the file is there—and if it is not, we are not interested in continuing the execution. 
+Moreover, as it is some HTML code, we might want to include it multiple times, so we did not choose the require_once option
